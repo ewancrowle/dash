@@ -1,7 +1,10 @@
 {
   "name": "dash",
   "version": "0.1.0",
-  "private": true,
+  "author": {
+    "name": "Ewan Crowle"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
