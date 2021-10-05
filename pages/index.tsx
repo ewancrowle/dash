@@ -24,6 +24,11 @@ const decks = [
 const Home: NextPage = () => {
   return (
     <Layout>
+      <Head>
+        <title>Dash</title>
+        <meta name="description" content="Flashcards made easy" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="align-middle">
         <div className="border-b border-gray-200 min-w-full">
           <table className="min-w-full divide-y divide-gray-200">
