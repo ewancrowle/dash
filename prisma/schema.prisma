@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dash.db"
+}
+
+model Deck {
+  id          String   @id
+  name        String   @unique
+  description String
+  cards       Card[]   @relation(name: "Deck_Cards")
+  author      User     @relation(name: "Deck_Author", fields: [userId], references: [id])
+  userId      String
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  createdAt   DateTime
+}
+
+model Card {
+  id           String   @id
+  deckId       String   @unique
+  front        String
+  back         String
+  deck         Deck     @relation("Deck_Cards", fields: [deckId], references: [id])
+  lastReviewed DateTime
+  lastScore    Int
+  nextReview   DateTime
+}
+
+model User {
+  id   String @id
+  name String
+  Deck Deck[] @relation("Deck_Author")
+}
+
+model Category {
+  id   String @id
+  name String
+  Deck Deck[]
+}
