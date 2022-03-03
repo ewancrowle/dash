@@ -1,29 +1,49 @@
 import type { NextPage } from "next";
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { Layout } from "../components/Layout";
+import prisma from "../lib/prisma";
 
-const decks = [
-  {
-    name: "1.5 Data Structures",
-    field: "AS/A Computer Science",
-    author: "Ewan Crowle",
-    cards: 15,
-    due: 5,
-  },
-  {
-    name: "2.1 Conduction of Electricity",
-    field: "AS/A Level Physics",
-    author: "Ewan Crowle",
-    cards: 20,
-    due: 0,
-  },
-];
+export const getStaticProps: GetStaticProps = async () => {
+  const decks = (
+    await prisma.deck.findMany({
+      include: {
+        cards: true,
+      },
+    })
+  ).map((deck) => {
+    return {
+      id: deck.id,
+      name: deck.name,
+      author: deck.author,
+      description: deck.description,
+      category: deck.category,
+      due: 0,
+      cards: deck.cards.length,
+    };
+  });
+  return {
+    props: {
+      decks,
+    },
+  };
+};
 
-const Home: NextPage = () => {
+type Props = {
+  decks: {
+    id: string;
+    name: string;
+    author: string;
+    description: string;
+    category: string;
+    due: number;
+    cards: number;
+  }[];
+};
+
+const Home: NextPage<Props> = (props) => {
   return (
-    <Layout>
+    <Layout page={0}>
       <Head>
         <title>Dash</title>
         <meta name="description" content="Flashcards made easy" />
@@ -55,8 +75,8 @@ const Home: NextPage = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {decks.map((deck) => (
-                <tr key={deck.cards}>
+              {props.decks.map((deck) => (
+                <tr key={deck.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
                       {deck.name}
@@ -66,11 +86,11 @@ const Home: NextPage = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{deck.field}</div>
+                    <div className="text-sm text-gray-900">{deck.category}</div>
                     <div className="text-sm text-gray-500">{deck.author}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {deck.due ? (
+                    {deck.due > 1 ? (
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-600">
                         {deck.due} cards
                       </span>
@@ -79,6 +99,14 @@ const Home: NextPage = () => {
                         None
                       </span>
                     )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <a
+                      href="#"
+                      className="text-indigo-600 hover:text-indigo-900"
+                    >
+                      Edit
+                    </a>
                   </td>
                 </tr>
               ))}

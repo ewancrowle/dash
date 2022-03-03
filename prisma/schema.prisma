@@ -11,15 +11,13 @@ datasource db {
 }
 
 model Deck {
-  id          String   @id
+  id          String   @id @default(cuid())
   name        String   @unique
   description String
   cards       Card[]   @relation(name: "Deck_Cards")
-  author      User     @relation(name: "Deck_Author", fields: [userId], references: [id])
-  userId      String
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  createdAt   DateTime
+  author      String
+  category    String
+  createdAt   DateTime @default(now())
 }
 
 model Card {
@@ -28,19 +26,8 @@ model Card {
   front        String
   back         String
   deck         Deck     @relation("Deck_Cards", fields: [deckId], references: [id])
+  createdAt    DateTime @default(now())
   lastReviewed DateTime
   lastScore    Int
   nextReview   DateTime
-}
-
-model User {
-  id   String @id
-  name String
-  Deck Deck[] @relation("Deck_Author")
-}
-
-model Category {
-  id   String @id
-  name String
-  Deck Deck[]
 }
