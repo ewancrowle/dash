@@ -67,6 +67,11 @@ const Home: NextPage<Props> = (props) => {
                 >
                   Cards Due
                 </th>
+                <th className="px-6 py-3 text-right text-sm font-medium">
+                  <Link href="/new/deck">
+                    <a className="text-indigo-600 hover:text-indigo-900">New</a>
+                  </Link>
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">

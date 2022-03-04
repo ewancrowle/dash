@@ -27,11 +27,6 @@ const pages: Page[] = [
     destination: "/",
   },
   {
-    title: "New Deck",
-    icon: <PlusIcon className="h-5" />,
-    destination: "/new/deck",
-  },
-  {
     title: "My Notes",
     icon: <DocumentTextIcon className="h-5" />,
     destination: "/notes",

@@ -4,7 +4,7 @@ import { Layout } from "../../components/Layout";
 
 const NewDeck: NextPage = () => {
   return (
-    <Layout page={1}>
+    <Layout page={0}>
       <form
         onSubmit={async (e) => {
           e.preventDefault();

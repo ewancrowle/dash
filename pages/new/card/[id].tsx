@@ -33,7 +33,7 @@ type Props = {
 
 const NewCard: NextPage<Props> = (props) => {
   return (
-    <Layout page={1}>
+    <Layout page={0}>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
