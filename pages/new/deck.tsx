@@ -1,17 +1,10 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import { Layout } from "../../components/Layout";
 import Router from "next/router";
+import { Layout } from "../../components/Layout";
 
 const NewDeck: NextPage = () => {
   return (
     <Layout page={1}>
-      <Head>
-        <title>Dash</title>
-        <meta name="description" content="Flashcards made easy" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -69,10 +62,7 @@ const NewDeck: NextPage = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="about"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label className="block text-sm font-medium text-gray-700">
               Description
             </label>
             <div className="mt-1">

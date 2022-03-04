@@ -21,13 +21,13 @@ model Deck {
 }
 
 model Card {
-  id           String   @id
-  deckId       String   @unique
+  id           String    @id @default(cuid())
+  deckId       String
   front        String
   back         String
-  deck         Deck     @relation("Deck_Cards", fields: [deckId], references: [id])
-  createdAt    DateTime @default(now())
-  lastReviewed DateTime
-  lastScore    Int
-  nextReview   DateTime
+  deck         Deck      @relation("Deck_Cards", fields: [deckId], references: [id])
+  createdAt    DateTime  @default(now())
+  lastReviewed DateTime?
+  lastScore    Int?
+  nextReview   DateTime?
 }

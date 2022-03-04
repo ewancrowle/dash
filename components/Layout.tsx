@@ -6,6 +6,7 @@ import {
   PlusIcon,
   UserIcon,
 } from "@heroicons/react/outline";
+import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
@@ -55,6 +56,11 @@ const pages: Page[] = [
 export const Layout: React.FC<Props> = (props) => {
   return (
     <div className="flex bg-white w-full h-screen">
+      <Head>
+        <title>Dash</title>
+        <meta name="description" content="Flashcards made easy" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="w-3/12 border-r p-3">
         <ul className="space-y-2 text-sm">
           {pages.map((page, index) => {

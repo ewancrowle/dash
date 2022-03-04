@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { GetStaticProps } from "next";
-import Head from "next/head";
+import Link from "next/link";
 import { Layout } from "../components/Layout";
 import prisma from "../lib/prisma";
 
@@ -44,11 +44,6 @@ type Props = {
 const Home: NextPage<Props> = (props) => {
   return (
     <Layout page={0}>
-      <Head>
-        <title>Dash</title>
-        <meta name="description" content="Flashcards made easy" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="align-middle">
         <div className="border-b border-gray-200 min-w-full">
           <table className="min-w-full divide-y divide-gray-200">
@@ -101,12 +96,11 @@ const Home: NextPage<Props> = (props) => {
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a
-                      href="#"
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      Edit
-                    </a>
+                    <Link href={`/edit/deck/${deck.id}`}>
+                      <a className="text-indigo-600 hover:text-indigo-900">
+                        Edit
+                      </a>
+                    </Link>
                   </td>
                 </tr>
               ))}
